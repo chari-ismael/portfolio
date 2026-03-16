@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ismael Chari — Développeur Web & Flutter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2ed;
+    --ink: #111010;
+    --muted: #888480;
+    --accent: #c9a96e;
+    --accent-dark: #9c7a45;
+    --line: rgba(17,16,16,0.12);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+    transform: translate(-50%, -50%);
+    opacity: 0.4;
+  }
+  body.hovering .cursor-ring { width: 48px; height: 48px; opacity: 0.2; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    z-index: 100;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* Hero */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-counter {
+    position: absolute; top: 50%; right: 4rem;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    writing-mode: vertical-rl;
+  }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 14vw, 13rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-title span {
+    color: var(--accent);
+    display: inline-block;
+  }
+
+  .hero-sub {
+    max-width: 420px;
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 2rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-top: 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .hero-cta:hover { color: var(--accent-dark); border-color: var(--accent-dark); }
+  .hero-cta svg { transition: transform 0.2s; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2rem; right: 4rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.1em;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--muted);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* Section base */
+  section { padding: 8rem 4rem; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    max-width: 80px;
+  }
+
+  /* About */
+  #about { border-top: 1px solid var(--line); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .about-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .about-text { font-size: 15px; color: var(--muted); max-width: 380px; }
+  .about-text p + p { margin-top: 1rem; }
+
+  .skills-list {
+    margin-top: 2.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+  /* Projects */
+  #projects { border-top: 1px solid var(--line); }
+  .projects-list { display: flex; flex-direction: column; gap: 0; }
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-item::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+  }
+  .project-item:hover::before { transform: scaleX(1); }
+  .project-item > * { position: relative; z-index: 1; }
+  .project-item:hover .project-num,
+  .project-item:hover .project-name,
+  .project-item:hover .project-desc,
+  .project-item:hover .project-tech,
+  .project-item:hover .project-arrow { color: var(--bg) !important; }
+
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .project-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 0.25rem;
+    transition: color 0.2s;
+  }
+  .project-tech {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-align: right;
+    transition: color 0.2s;
+  }
+  .project-arrow {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-left: 1rem;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .project-item:hover .project-arrow { transform: translate(4px, -4px); }
+
+  /* Project meta right column wrapper */
+  .project-right {
+    display: flex; align-items: center; gap: 1rem;
+    justify-content: flex-end;
+  }
+
+  /* Fictif badge */
+  .badge-fictif {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--accent);
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .project-item:hover .badge-fictif { border-color: var(--bg); color: var(--bg); opacity: 0.6; }
+
+  /* Contact */
+  #contact {
+    border-top: 1px solid var(--line);
+    text-align: center;
+    padding: 8rem 4rem 6rem;
+  }
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 9vw, 8rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .contact-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+  .contact-email {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-email:hover { color: var(--accent-dark); border-color: var(--accent-dark); }
+
+  .contact-links {
+    display: flex; gap: 2rem; justify-content: center;
+    margin-top: 3rem;
+  }
+  .contact-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .contact-links a:hover { color: var(--ink); }
+
+  /* Footer */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 1.5rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .project-item { grid-template-columns: 40px 1fr; }
+    .project-right { display: none; }
+    .hero-counter { display: none; }
+    .hero-scroll { display: none; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">IC — 2026</a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-counter">Développeur · Lille · FR</div>
+
+  <p class="hero-tag">Disponible pour des projets freelance</p>
+
+  <h1 class="hero-title">
+    ISMAEL<br/>
+    <span>CHARI</span>
+  </h1>
+
+  <p class="hero-sub">
+    Développeur web & Flutter basé à Lille.<br/>
+    Je conçois des sites et applications qui fonctionnent vraiment.
+  </p>
+
+  <a href="#projects" class="hero-cta">
+    Voir mes projets
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">À propos</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading reveal">Code.<br/>Livré.<br/>Propre.</h2>
+    </div>
+    <div class="reveal">
+      <div class="about-text">
+        <p>Je suis Ismael, développeur web & Flutter de 16 ans basé à Lille. J'ai commencé à coder par curiosité — aujourd'hui je construis des projets réels pour de vrais clients.</p>
+        <p>Mon approche : pas de template générique. Je construis ce dont vous avez besoin, en HTML/CSS/JS vanilla ou avec les bons outils selon le projet.</p>
+        <p>Disponible pour des missions freelance : sites vitrines, applications Flutter, outils web.</p>
+      </div>
+      <div class="skills-list">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">Dart</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Responsive</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">Projets sélectionnés</p>
+  <div class="projects-list">
+
+    <!-- Projet 1 : Marc Lory -->
+    <a href="https://github.com/chari-ismael/marc_lory" target="_blank" class="project-item reveal">
+      <span class="project-num">01</span>
+      <div>
+        <div class="project-name">MARC LORY</div>
+        <div class="project-desc">Site portfolio pour un comédien et figurant professionnel</div>
+      </div>
+      <div class="project-right">
+        <span class="project-tech">HTML · CSS</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <!-- Projet 2 : Arich Player -->
+    <a href="https://github.com/chari-ismael/arich-player" target="_blank" class="project-item reveal">
+      <span class="project-num">02</span>
+      <div>
+        <div class="project-name">ARICH PLAYER</div>
+        <div class="project-desc">Application Flutter de lecture multimédia — support Xtream Codes & M3U</div>
+      </div>
+      <div class="project-right">
+        <span class="project-tech">Flutter · Dart</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <!-- Projet 3 : Fictif - Restaurant -->
+    <a href="#" class="project-item reveal">
+      <span class="project-num">03</span>
+      <div>
+        <div class="project-name">LE PETIT LYON</div>
+        <div class="project-desc">Site vitrine pour restaurant — menu, réservation, localisation</div>
+      </div>
+      <div class="project-right">
+        <span class="badge-fictif">Démo</span>
+        <span class="project-tech">HTML · CSS · JS</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="contact-heading reveal">PARLONS<br/>PROJET</h2>
+  <p class="contact-sub reveal">Vous avez un projet web ou mobile ? Écrivez-moi.</p>
+  <a href="mailto:contact@ismael-chari.dev" class="contact-email reveal">contact@ismael-chari.dev</a>
+  <div class="contact-links reveal">
+    <a href="https://github.com/chari-ismael" target="_blank">GitHub</a>
+    <a href="#" target="_blank">LinkedIn</a>
+    <a href="#" target="_blank">Malt</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Ismael Chari</span>
+  <span>Lille, France</span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .skill-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
