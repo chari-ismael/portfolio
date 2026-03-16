@@ -13,7 +13,7 @@
 :root{
   --bg:#f5f2ed;--ink:#0e0d0c;--muted:#888480;
   --accent:#c9a96e;--accent-dark:#9c7a45;
-  --line:rgba(14,13,12,0.1);
+  --line:rgba(14,13,12,0.09);
   --nav-h:68px;
   --font-display:'Anton',sans-serif;
   --font-body:'DM Sans',sans-serif;
@@ -22,78 +22,45 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-weight:300;font-size:16px;line-height:1.7;overflow-x:hidden;cursor:none}
 
-/* ═══ LOADER ═══ */
+/* LOADER */
 #loader{position:fixed;inset:0;background:#0a0908;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity .9s ease,visibility .9s ease}
 #loader.done{opacity:0;visibility:hidden;pointer-events:none}
 #loaderCanvas{position:absolute;inset:0;pointer-events:none}
 .loader-info{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:0;animation:lFade .5s ease 1s forwards}
 .loader-bar-track{width:200px;height:1px;background:rgba(201,169,110,.12)}
-.loader-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent),var(--accent-dark));background-size:200%;width:0%;transition:width .08s linear;animation:shimmer 2s linear infinite}
+.loader-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent),var(--accent-dark));background-size:200%;width:0%;animation:shimmer 2s linear infinite}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
 .loader-pct{font-family:var(--font-mono);font-size:10px;color:rgba(201,169,110,.5);letter-spacing:.25em;text-align:center}
 .loader-name{font-family:var(--font-display);font-size:11px;color:rgba(255,255,255,.15);letter-spacing:.4em;text-transform:uppercase;margin-bottom:.5rem}
 @keyframes lFade{to{opacity:1}}
 
-/* ═══ CURSOR ═══ */
+/* CURSOR */
 .cursor{position:fixed;width:6px;height:6px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
-.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(14,13,12,.35);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(14,13,12,.3);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
 body.hovering .cursor-ring{width:50px;height:50px;border-color:var(--accent)}
 
-/* ═══ NAV ═══ */
-nav{
-  position:fixed;top:0;left:0;right:0;
-  height:var(--nav-h);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 3rem;
-  z-index:100;
-  border-bottom:2px solid transparent;
-  transition:background .4s,border-color .4s,backdrop-filter .4s;
-}
-nav.scrolled{
-  background:rgba(10,9,8,.92);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-bottom-color:var(--accent);
-}
-nav.scrolled .nav-links a{color:rgba(245,242,237,.6)}
-nav.scrolled .nav-links a:hover{color:var(--bg)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;z-index:100;border-bottom:2px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav.scrolled{background:rgba(10,9,8,.93);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--accent)}
+nav.scrolled .nav-center a{color:rgba(245,242,237,.55)}
+nav.scrolled .nav-center a:hover{color:var(--bg)}
 nav.scrolled .nav-cta{background:var(--accent)!important;color:var(--ink)!important}
 .nav-logo{display:flex;align-items:center;flex-shrink:0}
 .nav-logo img{height:36px;display:block}
 .nav-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:3rem;list-style:none}
 .nav-center a{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--ink);opacity:.45;transition:opacity .2s}
 .nav-center a:hover{opacity:1}
-.nav-right{display:flex;align-items:center;gap:1.5rem;flex-shrink:0}
+.nav-right{display:flex;align-items:center;flex-shrink:0}
 .nav-cta{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--bg)!important;background:var(--ink);padding:.5rem 1.3rem;transition:background .2s;white-space:nowrap}
 .nav-cta:hover{background:var(--accent-dark)!important}
 
-/* ═══ HERO ═══ */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:center;
-  padding:0 4rem;
-  padding-top:var(--nav-h);
-  position:relative;
-  overflow:hidden;
-  gap:4rem;
-}
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 4rem;padding-top:var(--nav-h);position:relative;overflow:hidden;gap:4rem}
 .hero-left{display:flex;flex-direction:column;justify-content:center}
 .hero-avail{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem;opacity:0;animation:fadeUp .7s ease .1s forwards}
 .hero-avail-dot{width:6px;height:6px;border-radius:50%;background:#4caf50;flex-shrink:0;animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(76,175,80,.5)}60%{box-shadow:0 0 0 7px rgba(76,175,80,0)}}
-.hero-title{
-  font-family:var(--font-display);
-  font-size:clamp(4.5rem,9vw,9rem);
-  line-height:.9;
-  letter-spacing:.01em;
-  opacity:0;
-  animation:fadeUp .9s ease .25s forwards;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
-}
+.hero-title{font-family:var(--font-display);font-size:clamp(4.5rem,9vw,9.5rem);line-height:.88;letter-spacing:.01em;opacity:0;animation:fadeUp .9s ease .25s forwards;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .hero-title .line1{display:block;color:var(--ink)}
 .hero-title .line2{display:block;color:var(--accent)}
 .hero-sub{max-width:420px;font-size:15px;color:var(--muted);margin-top:2rem;line-height:1.7;opacity:0;animation:fadeUp .8s ease .45s forwards}
@@ -106,41 +73,22 @@ nav.scrolled .nav-cta{background:var(--accent)!important;color:var(--ink)!import
 .btn-ghost:hover{color:var(--ink);border-color:var(--ink)}
 .hero-index{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.1em;margin-top:3rem;opacity:0;animation:fadeUp .7s ease .85s forwards}
 
-/* HERO RIGHT — stack visuel */
-.hero-right{
-  display:flex;flex-direction:column;gap:1px;
-  background:var(--line);
-  opacity:0;animation:fadeUp .8s ease .5s forwards;
-  border:1px solid var(--line);
-}
-.stack-row{
-  background:var(--bg);
-  padding:1.4rem 2rem;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:background .25s,padding-left .25s;
-  position:relative;overflow:hidden;
-}
-.stack-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);opacity:.12;transition:width .3s}
-.stack-row:hover::before{width:100%}
-.stack-row:hover{padding-left:2.5rem}
-.stack-name{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.04em;color:var(--ink)}
-.stack-level{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.stack-bar{width:80px;height:2px;background:var(--line);overflow:hidden;flex-shrink:0}
-.stack-bar-fill{height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.4,0,.2,1)}
-.stack-bar-fill.go{transform:scaleX(1)}
+/* HERO RIGHT — canvas hexagones */
+.hero-right{position:relative;height:100%;display:flex;align-items:center;justify-content:center;opacity:0;animation:fadeUp .8s ease .6s forwards}
+#hexCanvas{width:100%;height:500px;display:block}
+
 .hero-scroll{position:absolute;bottom:2rem;right:4rem;display:flex;align-items:center;gap:.75rem;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 .hero-scroll-line{width:48px;height:1px;background:var(--muted);animation:scrollPulse 2.5s ease infinite}
-.hero-bg-line{position:absolute;top:0;left:50%;width:1px;height:100%;background:var(--line);pointer-events:none}
 
-/* ═══ STATS ═══ */
+/* STATS */
 #stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
 .stat-item{padding:2.5rem 4rem;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:.4rem}
 .stat-item:last-child{border-right:none}
-.stat-num{font-family:var(--font-display);font-size:3rem;line-height:1;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
+.stat-num{font-family:var(--font-display);font-size:3rem;line-height:1;-webkit-font-smoothing:antialiased}
 .stat-num em{color:var(--accent);font-style:normal}
 .stat-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
-/* ═══ SECTIONS ═══ */
+/* SECTIONS */
 section{padding:9rem 4rem}
 .section-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3.5rem;display:flex;align-items:center;gap:1rem}
 .section-label::after{content:'';flex:1;height:1px;background:var(--line);max-width:60px}
@@ -148,18 +96,32 @@ section{padding:9rem 4rem}
 /* ABOUT */
 #about{border-top:1px solid var(--line)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center}
-.about-heading{font-family:var(--font-display);font-size:clamp(2.8rem,5vw,4.8rem);line-height:.95;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.about-heading{font-family:var(--font-display);font-size:clamp(2.8rem,5vw,4.8rem);line-height:.95;-webkit-font-smoothing:antialiased}
 .about-heading em{color:var(--accent);font-style:normal}
 .about-body{font-size:15px;color:var(--muted);max-width:400px}
 .about-body p+p{margin-top:1.2rem}
-.about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
-.about-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;padding:.3rem .8rem;border:1px solid var(--line);color:var(--muted);transition:border-color .2s,color .2s}
-.about-tag:hover{border-color:var(--accent);color:var(--accent-dark)}
+
+/* STACK — section langages stylisée */
+#stack{border-top:1px solid var(--line)}
+.stack-intro{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;margin-bottom:4rem}
+.stack-heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);line-height:.95;-webkit-font-smoothing:antialiased}
+.stack-desc{font-size:15px;color:var(--muted);max-width:480px;padding-top:.4rem}
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.stack-card{background:var(--bg);padding:2rem 2rem 1.8rem;display:flex;flex-direction:column;gap:1rem;position:relative;overflow:hidden;transition:background .3s}
+.stack-card:hover{background:#edeae3}
+.stack-card-top{display:flex;align-items:flex-start;justify-content:space-between}
+.stack-card-name{font-family:var(--font-display);font-size:2.2rem;line-height:1;-webkit-font-smoothing:antialiased;color:var(--ink)}
+.stack-card-level{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+.stack-card-pct{font-family:var(--font-display);font-size:3rem;color:rgba(14,13,12,.06);line-height:1;-webkit-font-smoothing:antialiased;align-self:flex-end}
+.stack-bar-track{height:1px;background:var(--line);margin-top:.5rem}
+.stack-bar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+.stack-card-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}
+.stack-card-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;padding:.2rem .6rem;border:1px solid var(--line);color:var(--muted)}
 
 /* SERVICES */
 #services{border-top:1px solid var(--line)}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
-.service-card{background:var(--bg);padding:2.5rem;display:flex;flex-direction:column;gap:1.2rem;transition:background .35s;position:relative;overflow:hidden}
+.service-card{background:var(--bg);padding:2.5rem;display:flex;flex-direction:column;gap:1.2rem;position:relative;overflow:hidden}
 .service-card::before{content:'';position:absolute;inset:0;background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform .5s cubic-bezier(.4,0,.2,1);z-index:0}
 .service-card:hover::before{transform:scaleY(1)}
 .service-card>*{position:relative;z-index:1;transition:color .3s}
@@ -172,19 +134,6 @@ section{padding:9rem 4rem}
 .service-tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .service-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;padding:.25rem .65rem;border:1px solid var(--line);color:var(--muted);transition:border-color .3s,color .3s}
 .service-price{font-family:var(--font-mono);font-size:12px;color:var(--accent-dark);letter-spacing:.06em}
-
-/* SKILLS */
-#skills{border-top:1px solid var(--line)}
-.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
-.skill-card{background:var(--bg);padding:2rem;transition:background .3s}
-.skill-card:hover{background:#ede9e2}
-.skill-icon{font-size:1.2rem;color:var(--muted);margin-bottom:1.2rem;display:block}
-.skill-title{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.04em;margin-bottom:.6rem;-webkit-font-smoothing:antialiased}
-.skill-desc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:1.5rem}
-.skill-bar-wrap{margin-top:.6rem}
-.skill-bar-label{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:.4rem;letter-spacing:.06em}
-.skill-bar-track{height:1px;background:var(--line)}
-.skill-bar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
 
 /* PROJECTS */
 #projects{border-top:1px solid var(--line)}
@@ -208,12 +157,11 @@ section{padding:9rem 4rem}
 /* TESTIMONIAL */
 #testimonial{background:var(--ink);padding:9rem 4rem;position:relative;overflow:hidden}
 .testi-deco{position:absolute;top:-20%;right:-8%;width:50vw;height:50vw;border-radius:50%;border:1px solid rgba(201,169,110,.05);pointer-events:none}
-.testi-deco2{position:absolute;bottom:-25%;left:-5%;width:35vw;height:35vw;border-radius:50%;border:1px solid rgba(201,169,110,.05);pointer-events:none}
 #testimonial .section-label{color:rgba(245,242,237,.2)}
 #testimonial .section-label::after{background:rgba(245,242,237,.07)}
-.testi-quote{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.8rem);line-height:1.1;letter-spacing:.02em;color:var(--bg);max-width:860px;margin-bottom:3.5rem;position:relative;z-index:1;-webkit-font-smoothing:antialiased}
+.testi-quote{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.8rem);line-height:1.1;letter-spacing:.02em;color:var(--bg);max-width:860px;margin-bottom:3.5rem;-webkit-font-smoothing:antialiased}
 .testi-quote em{color:var(--accent);font-style:normal}
-.testi-author{display:flex;align-items:center;gap:1.5rem;position:relative;z-index:1}
+.testi-author{display:flex;align-items:center;gap:1.5rem}
 .testi-avatar{width:52px;height:52px;border-radius:50%;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.25);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:.04em;flex-shrink:0}
 .testi-name{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;color:var(--bg)}
 .testi-role{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:rgba(245,242,237,.3);margin-top:.25rem;text-transform:uppercase}
@@ -239,45 +187,18 @@ section{padding:9rem 4rem}
 .form-submit:hover{background:var(--accent-dark);transform:translateY(-2px)}
 .form-success{display:none;font-family:var(--font-mono);font-size:12px;color:var(--accent-dark);letter-spacing:.08em;padding:1.2rem 0}
 
-/* FOOTER */
 footer{padding:2rem 4rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
 footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.1em}
 
-/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:.8}}
 .reveal{opacity:0;transform:translateY(36px);transition:opacity .75s ease,transform .75s ease}
 .reveal.visible{opacity:1;transform:none}
 
-/* RESPONSIVE */
-@media(max-width:1100px){
-  #hero{grid-template-columns:1fr;padding-bottom:5rem}
-  .hero-right{display:none}
-  .hero-bg-line{display:none}
-  .skills-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:900px){
-  .services-grid{grid-template-columns:1fr 1fr}
-  #stats{grid-template-columns:repeat(2,1fr)}
-  .stat-item{padding:2rem 2rem}
-  .nav-center{display:none}
-}
-@media(max-width:768px){
-  nav{padding:0 1.5rem}
-  .nav-center{display:none}
-  #hero,section,footer,#stats,#testimonial{padding-left:1.5rem;padding-right:1.5rem}
-  section{padding-top:5rem;padding-bottom:5rem}
-  .about-grid,.contact-grid{grid-template-columns:1fr;gap:3.5rem}
-  .services-grid{grid-template-columns:1fr}
-  .project-item{grid-template-columns:44px 1fr}.project-right{display:none}
-  .hero-scroll{display:none}
-  body{cursor:auto}.cursor,.cursor-ring{display:none}
-  #testimonial{padding-top:5rem;padding-bottom:5rem}
-}
-@media(max-width:480px){
-  .skills-grid{grid-template-columns:1fr}
-  #stats{grid-template-columns:1fr 1fr}
-}
+@media(max-width:1100px){#hero{grid-template-columns:1fr;padding-bottom:5rem}.hero-right{display:none}}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr}#stats{grid-template-columns:repeat(2,1fr)}.stat-item{padding:2rem 2rem}.nav-center{display:none}.stack-grid{grid-template-columns:repeat(2,1fr)}.stack-intro{grid-template-columns:1fr}}
+@media(max-width:768px){nav{padding:0 1.5rem}.nav-center{display:none}#hero,section,footer,#stats,#testimonial{padding-left:1.5rem;padding-right:1.5rem}section{padding-top:5rem;padding-bottom:5rem}.about-grid,.contact-grid{grid-template-columns:1fr;gap:3.5rem}.services-grid{grid-template-columns:1fr}.project-item{grid-template-columns:44px 1fr}.project-right{display:none}.hero-scroll{display:none}body{cursor:auto}.cursor,.cursor-ring{display:none}#testimonial{padding-top:5rem;padding-bottom:5rem}}
+@media(max-width:480px){.stack-grid{grid-template-columns:1fr}#stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -302,17 +223,13 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
     <li><a href="#about">À propos</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#projects">Projets</a></li>
-    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#stack">Compétences</a></li>
   </ul>
-  <div class="nav-right">
-    <a href="#contact" class="nav-cta">Me contacter</a>
-  </div>
+  <div class="nav-right"><a href="#contact" class="nav-cta">Me contacter</a></div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-line"></div>
-
   <div class="hero-left">
     <div class="hero-avail"><span class="hero-avail-dot"></span>Disponible pour des projets</div>
     <h1 class="hero-title">
@@ -321,24 +238,12 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
     </h1>
     <p class="hero-sub">Développeur web &amp; Flutter basé à Lille. Je conçois des sites et applications qui fonctionnent vraiment — livrés proprement, dans les délais.</p>
     <div class="hero-actions">
-      <a href="#projects" class="btn-primary">
-        Voir mes projets
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <a href="#projects" class="btn-primary">Voir mes projets <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="#contact" class="btn-ghost">Démarrer un projet</a>
     </div>
     <div class="hero-index">Développeur · Lille · FR</div>
   </div>
-
-  <div class="hero-right" id="heroStack">
-    <div class="stack-row"><span class="stack-name">HTML / CSS</span><div class="stack-bar"><div class="stack-bar-fill" style="transform:scaleX(.9)"></div></div><span class="stack-level">Avancé</span></div>
-    <div class="stack-row"><span class="stack-name">JAVASCRIPT</span><div class="stack-bar"><div class="stack-bar-fill" style="transform:scaleX(.7)"></div></div><span class="stack-level">Intermédiaire</span></div>
-    <div class="stack-row"><span class="stack-name">FLUTTER</span><div class="stack-bar"><div class="stack-bar-fill" style="transform:scaleX(.65)"></div></div><span class="stack-level">Intermédiaire</span></div>
-    <div class="stack-row"><span class="stack-name">DART</span><div class="stack-bar"><div class="stack-bar-fill" style="transform:scaleX(.6)"></div></div><span class="stack-level">Intermédiaire</span></div>
-    <div class="stack-row"><span class="stack-name">PHP</span><div class="stack-bar"><div class="stack-bar-fill" style="transform:scaleX(.55)"></div></div><span class="stack-level">Notions</span></div>
-    <div class="stack-row"><span class="stack-name">GIT</span><div class="stack-bar"><div class="stack-bar-fill" style="transform:scaleX(.75)"></div></div><span class="stack-level">Avancé</span></div>
-  </div>
-
+  <div class="hero-right"><canvas id="hexCanvas"></canvas></div>
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span>Scroll</span></div>
 </section>
 
@@ -361,9 +266,47 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
         <p>Mon approche : pas de template générique. Je construis ce dont vous avez besoin, du site vitrine à l'application mobile cross-platform.</p>
         <p>Disponible pour des missions freelance : sites vitrines, landing pages, applications Flutter, outils web sur mesure.</p>
       </div>
-      <div class="about-tags">
-        <span class="about-tag">HTML</span><span class="about-tag">CSS</span><span class="about-tag">JavaScript</span><span class="about-tag">PHP</span><span class="about-tag">Flutter</span><span class="about-tag">Dart</span><span class="about-tag">Git</span><span class="about-tag">Responsive</span><span class="about-tag">Vercel</span>
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack">
+  <p class="section-label reveal">Stack technique</p>
+  <div class="stack-intro reveal">
+    <h2 class="stack-heading">Les outils<br/>que je maîtrise.</h2>
+    <p class="stack-desc">Du frontend au mobile, chaque langage a sa place dans mon workflow. Je travaille en vanilla quand c'est possible, avec les bons outils quand c'est nécessaire.</p>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-card reveal">
+      <div class="stack-card-top"><div><div class="stack-card-name">HTML / CSS</div><div class="stack-card-level">Avancé</div></div><div class="stack-card-pct">90</div></div>
+      <div class="stack-bar-track"><div class="stack-bar-fill" data-width="90"></div></div>
+      <div class="stack-card-tags"><span class="stack-card-tag">Flexbox</span><span class="stack-card-tag">Grid</span><span class="stack-card-tag">Animations</span><span class="stack-card-tag">Responsive</span></div>
+    </div>
+    <div class="stack-card reveal">
+      <div class="stack-card-top"><div><div class="stack-card-name">JAVASCRIPT</div><div class="stack-card-level">Intermédiaire</div></div><div class="stack-card-pct">70</div></div>
+      <div class="stack-bar-track"><div class="stack-bar-fill" data-width="70"></div></div>
+      <div class="stack-card-tags"><span class="stack-card-tag">DOM</span><span class="stack-card-tag">Fetch API</span><span class="stack-card-tag">Canvas</span></div>
+    </div>
+    <div class="stack-card reveal">
+      <div class="stack-card-top"><div><div class="stack-card-name">FLUTTER</div><div class="stack-card-level">Intermédiaire</div></div><div class="stack-card-pct">65</div></div>
+      <div class="stack-bar-track"><div class="stack-bar-fill" data-width="65"></div></div>
+      <div class="stack-card-tags"><span class="stack-card-tag">Android</span><span class="stack-card-tag">Widgets</span><span class="stack-card-tag">State</span></div>
+    </div>
+    <div class="stack-card reveal">
+      <div class="stack-card-top"><div><div class="stack-card-name">DART</div><div class="stack-card-level">Intermédiaire</div></div><div class="stack-card-pct">60</div></div>
+      <div class="stack-bar-track"><div class="stack-bar-fill" data-width="60"></div></div>
+      <div class="stack-card-tags"><span class="stack-card-tag">OOP</span><span class="stack-card-tag">Async</span></div>
+    </div>
+    <div class="stack-card reveal">
+      <div class="stack-card-top"><div><div class="stack-card-name">PHP</div><div class="stack-card-level">Notions</div></div><div class="stack-card-pct">55</div></div>
+      <div class="stack-bar-track"><div class="stack-bar-fill" data-width="55"></div></div>
+      <div class="stack-card-tags"><span class="stack-card-tag">Forms</span><span class="stack-card-tag">MySQL</span></div>
+    </div>
+    <div class="stack-card reveal">
+      <div class="stack-card-top"><div><div class="stack-card-name">GIT</div><div class="stack-card-level">Avancé</div></div><div class="stack-card-pct">75</div></div>
+      <div class="stack-bar-track"><div class="stack-bar-fill" data-width="75"></div></div>
+      <div class="stack-card-tags"><span class="stack-card-tag">GitHub</span><span class="stack-card-tag">Versioning</span><span class="stack-card-tag">Deploy</span></div>
     </div>
   </div>
 </section>
@@ -382,8 +325,8 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
     <div class="service-card reveal">
       <div class="service-num">02</div>
       <div class="service-title">APP MOBILE</div>
-      <div class="service-desc">Application Flutter déployée sur Android. Interface soignée, logique métier robuste, publication sur le Play Store incluse.</div>
-      <div class="service-tags"><span class="service-tag">Flutter</span><span class="service-tag">Dart</span><span class="service-tag">Android</span><span class="service-tag">iOS</span></div>
+      <div class="service-desc">Application Flutter déployée sur Android. Interface soignée, logique métier robuste, publication Play Store incluse.</div>
+      <div class="service-tags"><span class="service-tag">Flutter</span><span class="service-tag">Dart</span><span class="service-tag">Android</span></div>
       <div class="service-price">Sur devis</div>
     </div>
     <div class="service-card reveal">
@@ -392,41 +335,6 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
       <div class="service-desc">Formulaire avancé, calculateur, outil interne, dashboard — tout ce qui simplifie une tâche répétitive dans votre activité.</div>
       <div class="service-tags"><span class="service-tag">JS</span><span class="service-tag">PHP</span><span class="service-tag">API</span></div>
       <div class="service-price">Sur devis</div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <p class="section-label reveal">Compétences</p>
-  <div class="skills-grid">
-    <div class="skill-card reveal">
-      <span class="skill-icon">◻</span>
-      <div class="skill-title">Frontend</div>
-      <div class="skill-desc">Interfaces modernes, responsive et accessibles.</div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>HTML / CSS</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>JavaScript</span><span>70%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <span class="skill-icon">◈</span>
-      <div class="skill-title">Mobile</div>
-      <div class="skill-desc">Applications cross-platform iOS &amp; Android.</div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Flutter</span><span>65%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Dart</span><span>60%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <span class="skill-icon">⬡</span>
-      <div class="skill-title">Backend</div>
-      <div class="skill-desc">Logique serveur, bases de données, APIs.</div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>PHP</span><span>55%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>SQL</span><span>50%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="50"></div></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <span class="skill-icon">⌥</span>
-      <div class="skill-title">Outils</div>
-      <div class="skill-desc">Versioning, déploiement continu, hébergement moderne.</div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Git / GitHub</span><span>75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Vercel</span><span>70%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div></div>
     </div>
   </div>
 </section>
@@ -455,15 +363,12 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
 
 <!-- TESTIMONIAL -->
 <section id="testimonial">
-  <div class="testi-deco"></div><div class="testi-deco2"></div>
+  <div class="testi-deco"></div>
   <p class="section-label reveal">Témoignage</p>
   <blockquote class="testi-quote reveal">"Ismael a créé mon site portfolio avec <em>sérieux et réactivité.</em> Résultat propre, livré rapidement, exactement ce que je voulais."</blockquote>
   <div class="testi-author reveal">
     <div class="testi-avatar">ML</div>
-    <div>
-      <div class="testi-name">Marc Lory</div>
-      <div class="testi-role">Comédien &amp; Figurant professionnel · lory-marc.fr</div>
-    </div>
+    <div><div class="testi-name">Marc Lory</div><div class="testi-role">Comédien &amp; Figurant · lory-marc.fr</div></div>
   </div>
 </section>
 
@@ -500,174 +405,150 @@ footer span{font-family:var(--font-mono);font-size:10px;color:var(--muted);lette
 
 <script>
 /* ── LOADER CANVAS ── */
-const canvas=document.getElementById('loaderCanvas');
-const ctx=canvas.getContext('2d');
-let W,H;
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
-resize();window.addEventListener('resize',resize);
-
+const lc=document.getElementById('loaderCanvas');
+const lctx=lc.getContext('2d');
+let LW,LH;
+function lresize(){LW=lc.width=window.innerWidth;LH=lc.height=window.innerHeight}
+lresize();window.addEventListener('resize',lresize);
 const GOLD=['#c9a96e','#9c7a45','#e8c87a','#b8954e','#d4aa55'];
-const CENTER_X=()=>W/2, CENTER_Y=()=>H/2;
-
-class Particle{
+class LP{
   constructor(){this.reset(true)}
   reset(init){
-    const a=Math.random()*Math.PI*2;
-    const d=init?(80+Math.random()*300):(220+Math.random()*350);
-    this.x=CENTER_X()+Math.cos(a)*d;
-    this.y=CENTER_Y()+Math.sin(a)*d;
-    this.vx=(Math.random()-.5)*.6;
-    this.vy=(Math.random()-.5)*.6;
-    this.size=.4+Math.random()*2.2;
-    this.color=GOLD[Math.floor(Math.random()*GOLD.length)];
-    this.alpha=0;
-    this.maxAlpha=.2+Math.random()*.55;
-    this.life=0;
-    this.maxLife=120+Math.random()*180;
-    this.shape=Math.random()>.4?'circle':'rect';
-    this.rot=Math.random()*Math.PI*2;
-    this.rotV=(Math.random()-.5)*.05;
-    this.pulse=Math.random()*Math.PI*2;
-    this.pulseSpeed=.02+Math.random()*.03;
+    const a=Math.random()*Math.PI*2,d=init?(80+Math.random()*300):(220+Math.random()*380);
+    this.x=LW/2+Math.cos(a)*d;this.y=LH/2+Math.sin(a)*d;
+    this.vx=(Math.random()-.5)*.55;this.vy=(Math.random()-.5)*.55;
+    this.size=.3+Math.random()*2;this.color=GOLD[Math.floor(Math.random()*GOLD.length)];
+    this.alpha=0;this.maxAlpha=.15+Math.random()*.5;
+    this.life=0;this.maxLife=130+Math.random()*200;
+    this.shape=Math.random()>.45?'c':'r';
+    this.rot=Math.random()*Math.PI*2;this.rotV=(Math.random()-.5)*.04;
+    this.pulse=Math.random()*Math.PI*2;this.pulseS=.018+Math.random()*.025;
   }
-  update(){
-    this.life++;
-    this.pulse+=this.pulseSpeed;
-    const ratio=this.life/this.maxLife;
-    this.alpha=Math.sin(ratio*Math.PI)*this.maxAlpha*(1+.2*Math.sin(this.pulse));
-    this.x+=this.vx;this.y+=this.vy;
-    this.rot+=this.rotV;
+  tick(){
+    this.life++;this.pulse+=this.pulseS;
+    const r=this.life/this.maxLife;
+    this.alpha=Math.sin(r*Math.PI)*this.maxAlpha*(1+.18*Math.sin(this.pulse));
+    this.x+=this.vx;this.y+=this.vy;this.rot+=this.rotV;
     if(this.life>=this.maxLife)this.reset(false);
   }
   draw(){
-    ctx.save();
-    ctx.globalAlpha=Math.max(0,this.alpha);
-    ctx.fillStyle=this.color;
-    ctx.strokeStyle=this.color;
-    ctx.translate(this.x,this.y);
-    ctx.rotate(this.rot);
-    if(this.shape==='circle'){
-      ctx.beginPath();ctx.arc(0,0,this.size,0,Math.PI*2);ctx.fill();
-    } else {
-      ctx.lineWidth=.6;
-      ctx.strokeRect(-this.size,-this.size,this.size*2,this.size*2);
-    }
-    ctx.restore();
+    lctx.save();lctx.globalAlpha=Math.max(0,this.alpha);lctx.fillStyle=this.color;lctx.strokeStyle=this.color;
+    lctx.translate(this.x,this.y);lctx.rotate(this.rot);
+    if(this.shape==='c'){lctx.beginPath();lctx.arc(0,0,this.size,0,Math.PI*2);lctx.fill();}
+    else{lctx.lineWidth=.5;lctx.strokeRect(-this.size,-this.size,this.size*2,this.size*2);}
+    lctx.restore();
   }
 }
-
-/* Orbiting rings */
-class Ring{
-  constructor(r,speed,opacity){this.r=r;this.angle=Math.random()*Math.PI*2;this.speed=speed;this.opacity=opacity;this.dashOffset=0}
-  update(){this.angle+=this.speed;this.dashOffset-=.3}
+class LRing{
+  constructor(r,spd,op){this.r=r;this.a=Math.random()*Math.PI*2;this.spd=spd;this.op=op;this.dash=0}
+  tick(){this.a+=this.spd;this.dash-=.25}
   draw(){
-    ctx.save();
-    ctx.globalAlpha=this.opacity;
-    ctx.strokeStyle='#c9a96e';
-    ctx.lineWidth=.5;
-    ctx.setLineDash([4,12]);
-    ctx.lineDashOffset=this.dashOffset;
-    ctx.beginPath();
-    ctx.arc(CENTER_X(),CENTER_Y(),this.r,0,Math.PI*2);
-    ctx.stroke();
-    /* dot on ring */
-    ctx.globalAlpha=this.opacity*2;
-    ctx.fillStyle='#e8c87a';
-    ctx.setLineDash([]);
-    ctx.beginPath();
-    ctx.arc(CENTER_X()+Math.cos(this.angle)*this.r,CENTER_Y()+Math.sin(this.angle)*this.r,2,0,Math.PI*2);
-    ctx.fill();
-    ctx.restore();
+    lctx.save();lctx.globalAlpha=this.op;lctx.strokeStyle='#c9a96e';lctx.lineWidth=.5;
+    lctx.setLineDash([3,14]);lctx.lineDashOffset=this.dash;
+    lctx.beginPath();lctx.arc(LW/2,LH/2,this.r,0,Math.PI*2);lctx.stroke();
+    lctx.globalAlpha=this.op*2.5;lctx.fillStyle='#e8c87a';lctx.setLineDash([]);
+    lctx.beginPath();lctx.arc(LW/2+Math.cos(this.a)*this.r,LH/2+Math.sin(this.a)*this.r,2,0,Math.PI*2);lctx.fill();
+    lctx.restore();
   }
 }
-
-const particles=Array.from({length:120},()=>new Particle());
-const rings=[new Ring(90,.008,.25),new Ring(130,.005,.18),new Ring(175,.003,.12)];
-
-let loaderDone=false;
-function drawFrame(){
-  ctx.clearRect(0,0,W,H);
-  if(loaderDone)return;
-  rings.forEach(r=>{r.update();r.draw()});
-  particles.forEach(p=>{p.update();p.draw()});
-  requestAnimationFrame(drawFrame);
+const lparts=Array.from({length:130},()=>new LP());
+const lrings=[new LRing(85,.009,.3),new LRing(130,.006,.2),new LRing(180,.004,.13),new LRing(230,.0025,.08)];
+let ldone=false;
+function lframe(){
+  lctx.clearRect(0,0,LW,LH);
+  if(ldone)return;
+  lrings.forEach(r=>{r.tick();r.draw()});
+  lparts.forEach(p=>{p.tick();p.draw()});
+  requestAnimationFrame(lframe);
 }
-drawFrame();
-
-/* Progress */
+lframe();
 const loaderEl=document.getElementById('loader');
 const loaderBar=document.getElementById('loaderBar');
 const loaderPct=document.getElementById('loaderPct');
 document.body.style.overflow='hidden';
 let prog=0;
-const iv=setInterval(()=>{
-  prog+=Math.random()*8+1.5;
-  if(prog>=100){prog=100;clearInterval(iv)}
+const liv=setInterval(()=>{
+  prog+=Math.random()*7+1;
+  if(prog>=100){prog=100;clearInterval(liv)}
   loaderBar.style.width=prog+'%';
   loaderPct.textContent=Math.floor(prog)+'%';
-  if(prog===100){
-    setTimeout(()=>{
-      loaderDone=true;
-      loaderEl.classList.add('done');
-      document.body.style.overflow='';
-      /* trigger stack bars */
-      document.querySelectorAll('.stack-bar-fill').forEach(b=>b.classList.add('go'));
-    },700);
+  if(prog===100)setTimeout(()=>{ldone=true;loaderEl.classList.add('done');document.body.style.overflow='';},750);
+},95);
+
+/* ── HEX CANVAS ── */
+const hc=document.getElementById('hexCanvas');
+const hctx=hc.getContext('2d');
+function hexSetup(){
+  const r=hc.parentElement.getBoundingClientRect();
+  hc.width=r.width||600;hc.height=500;
+  drawHex();
+}
+function hexPoly(x,y,size){
+  hctx.beginPath();
+  for(let i=0;i<6;i++){
+    const a=Math.PI/180*(60*i-30);
+    const px=x+size*Math.cos(a),py=y+size*Math.sin(a);
+    i===0?hctx.moveTo(px,py):hctx.lineTo(px,py);
   }
-},90);
+  hctx.closePath();
+}
+function drawHex(){
+  hctx.clearRect(0,0,hc.width,hc.height);
+  const W=hc.width,H=hc.height;
+  const sizes=[28,22,18,14];
+  const configs=[
+    {x:W*.22,y:H*.18,s:28,o:.18},{x:W*.44,y:H*.12,s:22,o:.13},{x:W*.68,y:H*.22,s:28,o:.20},
+    {x:W*.82,y:H*.14,s:18,o:.10},{x:W*.10,y:H*.42,s:18,o:.12},{x:W*.33,y:H*.38,s:28,o:.18},
+    {x:W*.55,y:H*.35,s:22,o:.15},{x:W*.75,y:H*.42,s:28,o:.22},{x:W*.90,y:H*.38,s:18,o:.10},
+    {x:W*.18,y:H*.62,s:22,o:.14},{x:W*.42,y:H*.60,s:28,o:.20},{x:W*.63,y:H*.58,s:22,o:.16},
+    {x:W*.85,y:H*.64,s:28,o:.18},{x:W*.28,y:H*.80,s:18,o:.10},{x:W*.52,y:H*.78,s:28,o:.22},
+    {x:W*.74,y:H*.82,s:18,o:.12},{x:W*.92,y:H*.75,s:22,o:.14},
+  ];
+  configs.forEach(c=>{
+    hexPoly(c.x,c.y,c.s);
+    hctx.strokeStyle=`rgba(156,122,69,${c.o})`;
+    hctx.lineWidth=.8;
+    hctx.stroke();
+    /* dot */
+    hctx.beginPath();
+    hctx.arc(c.x,c.y,1.5,0,Math.PI*2);
+    hctx.fillStyle=`rgba(201,169,110,${c.o*1.5})`;
+    hctx.fill();
+  });
+  /* connector lines between some hexes */
+  const pairs=[[0,1],[1,2],[2,3],[4,5],[5,6],[6,7],[8,9],[9,10],[10,11],[11,12],[13,14],[14,15],[15,16]];
+  pairs.forEach(([a,b])=>{
+    const ca=configs[a],cb=configs[b];
+    hctx.beginPath();hctx.moveTo(ca.x,ca.y);hctx.lineTo(cb.x,cb.y);
+    hctx.strokeStyle=`rgba(156,122,69,0.07)`;hctx.lineWidth=.5;hctx.stroke();
+  });
+}
+setTimeout(hexSetup,100);
+window.addEventListener('resize',hexSetup);
 
 /* ── CURSOR ── */
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursorRing');
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-(function tick(){
-  cursor.style.left=mx+'px';cursor.style.top=my+'px';
-  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a,button,.skill-card,.service-card,.project-item,.stack-row').forEach(el=>{
+(function tick(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+document.querySelectorAll('a,button,.stack-card,.service-card,.project-item').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
 });
 
-/* ── NAV SCROLL ── */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
-});
+/* ── NAV ── */
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
 
 /* ── COUNTERS ── */
-function animCounter(el,target,dur){
-  let s=0,step=target/dur*16;
-  const t=setInterval(()=>{s=Math.min(s+step,target);el.textContent=Math.floor(s);if(s>=target)clearInterval(t)},16);
-}
+function cnt(el,t,d){let s=0,sp=t/d*16;const iv=setInterval(()=>{s=Math.min(s+sp,t);el.textContent=Math.floor(s);if(s>=t)clearInterval(iv)},16)}
 let ran=false;
-new IntersectionObserver(e=>{
-  if(e[0].isIntersecting&&!ran){ran=true;animCounter(document.getElementById('s1'),2,700);animCounter(document.getElementById('s2'),352,1600);animCounter(document.getElementById('s3'),3,500)}
-},{threshold:.5}).observe(document.getElementById('stats'));
+new IntersectionObserver(e=>{if(e[0].isIntersecting&&!ran){ran=true;cnt(document.getElementById('s1'),2,700);cnt(document.getElementById('s2'),352,1600);cnt(document.getElementById('s3'),3,500)}},{threshold:.5}).observe(document.getElementById('stats'));
 
-/* ── REVEAL + BARS ── */
-new IntersectionObserver(entries=>{
+/* ── REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{
     if(e.isIntersecting){
-      setTimeout(()=>{
-        e.target.classList.add('visible');
-        e.target.querySelectorAll('.skill-bar-fill').forEach(b=>{b.style.width=b.dataset.width+'%'});
-      },i*90);
-      new IntersectionObserver(()=>{}).observe(e.target);
-    }
-  });
-},{threshold:.1}).observe(document.body);
-
-/* simpler reveal */
-const obs=new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      setTimeout(()=>{
-        e.target.classList.add('visible');
-        e.target.querySelectorAll('.skill-bar-fill').forEach(b=>{b.style.width=b.dataset.width+'%'});
-      },i*90);
+      setTimeout(()=>{e.target.classList.add('visible');e.target.querySelectorAll('.stack-bar-fill,.skill-bar-fill').forEach(b=>{b.style.width=b.dataset.width+'%'})},i*90);
       obs.unobserve(e.target);
     }
   });
@@ -677,8 +558,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 /* ── FORM ── */
 document.getElementById('contactForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  const btn=this.querySelector('.form-submit');
-  btn.textContent='Envoi…';btn.disabled=true;
+  const btn=this.querySelector('.form-submit');btn.textContent='Envoi…';btn.disabled=true;
   try{
     const res=await fetch('https://formspree.io/f/mbdzzlqw',{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});
     if(res.ok){this.style.display='none';document.getElementById('formSuccess').style.display='block'}
